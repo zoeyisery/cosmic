@@ -1,9 +1,12 @@
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI!;
-const client = new MongoClient(uri);
+const globalForMongo = global as unknown as { mongoClient?: MongoClient };
 
 export const connectDB = async () => {
-  if (!client.isConnected) await client.connect();
-  return client.db("cosmic");
+  if (!globalForMongo.mongoClient) {
+    globalForMongo.mongoClient = new MongoClient(uri);
+    await globalForMongo.mongoClient.connect();
+  }
+  return globalForMongo.mongoClient.db("cosmic");
 };
