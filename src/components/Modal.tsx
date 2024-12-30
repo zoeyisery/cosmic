@@ -1,23 +1,62 @@
 "use client";
-import React from "react";
 
-interface ModalProps {
-  isOpen: boolean; // 모달의 열림/닫힘 상태
-  onClose: () => void; // 닫기 버튼 동작
-  children: React.ReactNode; // 모달 내부에 렌더링할 내용
-}
+import React, { useState } from "react";
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  if (!isOpen) return null; // 모달이 닫혀 있으면 아무것도 렌더링하지 않음
+const Modal = ({
+  isOpen,
+  onClose,
+  onKeywordSelect,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onKeywordSelect: (keyword: string) => void;
+}) => {
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+
+  const keywords = ["Skincare", "Makeup", "Haircare", "Fragrance"];
+
+  const handleKeywordClick = (keyword: string) => {
+    setSelectedKeyword(keyword);
+  };
+
+  const handleClose = () => {
+    if (selectedKeyword) {
+      onKeywordSelect(selectedKeyword); // 부모 컴포넌트로 키워드 전달
+    }
+    onClose();
+  };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded shadow-lg w-96">
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-        ></button>
-        {children}
+      <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg">
+        <h2 className="text-lg font-bold mb-4 text-center">
+          키워드를 선택하세요
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {keywords.map((keyword) => (
+            <button
+              key={keyword}
+              className={`px-4 py-2 rounded ${
+                selectedKeyword === keyword
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-800"
+              } hover:bg-blue-500 hover:text-white`}
+              onClick={() => handleKeywordClick(keyword)}
+            >
+              {keyword}
+            </button>
+          ))}
+        </div>
+        <div className="mt-4 text-center">
+          <button
+            onClick={handleClose}
+            className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
