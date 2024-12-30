@@ -6,10 +6,12 @@ export const handleKeywordSelection = async (
   setError: React.Dispatch<React.SetStateAction<string | null>>
 ) => {
   try {
+    console.log(`Fetching posts for keyword: ${keyword}`);
     const posts = await fetchPostsByKeyword(keyword);
-    setPosts(posts); // View에 데이터를 전달
+    setPosts((prevPosts) => [...prevPosts, ...posts]); // 기존 게시물에 추가
     setError(null); // 오류 초기화
   } catch (error) {
+    console.error("Error in handleKeywordSelection:", error);
     setError("Failed to fetch posts.");
   }
 };

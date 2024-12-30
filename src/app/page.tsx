@@ -4,20 +4,21 @@ import React, { useState } from "react";
 import Modal from "@/components/Modal";
 import Card from "@/components/Card";
 import { handleKeywordSelection } from "@/controllers/postControl";
-import { Post } from "@/models/postModel";
 
 const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(true);
-  const [posts, setPosts] = useState<Post[]>([]); // 게시물 상태
+  const [posts, setPosts] = useState([]); // 게시물 상태
   const [error, setError] = useState<string | null>(null);
 
   const closeModal = () => setIsModalOpen(false);
 
   console.log("handleKeywordSelection:", handleKeywordSelection);
 
-  const handleKeywordSelect = async (keyword: string) => {
+  const handleKeywordSelect = async (keywords: string[]) => {
     setIsModalOpen(false); // 모달 닫기
-    await handleKeywordSelection(keyword, setPosts, setError); // Controller 호출
+    for (const keyword of keywords) {
+      await handleKeywordSelection(keyword, setPosts, setError);
+    }
   };
 
   return (
