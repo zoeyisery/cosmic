@@ -9,19 +9,23 @@ const Modal = ({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  onKeywordSelect: (keyword: string) => void;
+  onKeywordSelect: (keyword: string[]) => void;
 }) => {
-  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
 
   const keywords = ["Skincare", "Makeup", "Haircare", "Fragrance"];
 
-  const handleKeywordClick = (keyword: string) => {
-    setSelectedKeyword(keyword);
+  const toggleKeyword = (keyword: string) => {
+    setSelectedKeywords((prevKeywords) =>
+      prevKeywords.includes(keyword)
+        ? prevKeywords.filter((k) => k !== keyword)
+        : [...prevKeywords, keyword]
+    );
   };
 
   const handleClose = () => {
-    if (selectedKeyword) {
-      onKeywordSelect(selectedKeyword); // 부모 컴포넌트로 키워드 전달
+    if (selectedKeywords.length > 0) {
+      onKeywordSelect(selectedKeywords); // 부모 컴포넌트로 키워드 전달
     }
     onClose();
   };
@@ -39,11 +43,11 @@ const Modal = ({
             <button
               key={keyword}
               className={`px-4 py-2 rounded ${
-                selectedKeyword === keyword
+                selectedKeywords.includes(keyword)
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 text-gray-800"
               } hover:bg-blue-500 hover:text-white`}
-              onClick={() => handleKeywordClick(keyword)}
+              onClick={() => toggleKeyword(keyword)}
             >
               {keyword}
             </button>
