@@ -1,0 +1,53 @@
+/*html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}*/
+
+/* 화면 가운데 콘텐츠를 배치 */
+/*.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}*/
+
+/* 콘텐츠의 최대 너비와 높이를 제한 */ /* 원하는 너비 (예: 1200px) */
+/*.content {
+  width: 1200px;
+  max-width: 100%;
+  height: 100%;
+  overflow: hidden;
+}*/
+
+/* 모바일 기기에서 너비를 100%로 조정 */
+/*@media (max-width: 768px) {
+  .content {
+    width: 100%;
+    padding: 10px;
+  }
+}*/
+/* 전체 화면을 flex로 설정하여 가운데 정렬 */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 콘텐츠를 세로로 상단에 정렬 */
+  height: 100vh; /* 화면 전체 높이 사용 */
+  background-color: black; /* 배경 색 */
+  padding: 0 10%; /* 여백 추가 */
+}
+
+/* 콘텐츠의 너비 고정 */
+.content {
+  width: 40%; /* 원하는 너비로 고정 (예: 40%) */
+  max-width: 1200px; /* 최대 너비 1200px로 설정하여 작은 화면에서 자동 조정 */
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px; /* 둥근 모서리 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  margin: 0 auto; /* 좌우 여백 자동으로 추가 */
+}

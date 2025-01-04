@@ -1,36 +1,31 @@
 "use client";
 
 import React, { useState } from "react";
-
 const Modal = ({
   isOpen,
+  //onKeywordSelect,
   onClose,
-  onKeywordSelect,
 }: {
   isOpen: boolean;
+  //onKeywordSelect: (keyword: string) => void;
   onClose: () => void;
-  onKeywordSelect: (keyword: string[]) => void;
 }) => {
-  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
 
-  const keywords = ["Skincare", "Makeup", "Haircare", "Fragrance"];
+  const keywords = ["Skincare", "Makeup", "Haircare", "Fragrance"]; // 예제 키워드
 
-  const toggleKeyword = (keyword: string) => {
-    setSelectedKeywords((prevKeywords) =>
-      prevKeywords.includes(keyword)
-        ? prevKeywords.filter((k) => k !== keyword)
-        : [...prevKeywords, keyword]
-    );
+  const handleKeywordClick = (keyword: string) => {
+    setSelectedKeyword(keyword); // 선택된 키워드 업데이트
   };
 
   const handleClose = () => {
-    if (selectedKeywords.length > 0) {
-      onKeywordSelect(selectedKeywords); // 부모 컴포넌트로 키워드 전달
+    if (selectedKeyword) {
+      //onKeywordSelect(selectedKeyword); // 선택된 키워드 전달
     }
-    onClose();
+    onClose(); // 모달 닫기
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) return null; // 모달이 닫혀 있으면 렌더링하지 않음
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -43,11 +38,11 @@ const Modal = ({
             <button
               key={keyword}
               className={`px-4 py-2 rounded ${
-                selectedKeywords.includes(keyword)
+                selectedKeyword === keyword
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 text-gray-800"
               } hover:bg-blue-500 hover:text-white`}
-              onClick={() => toggleKeyword(keyword)}
+              onClick={() => handleKeywordClick(keyword)}
             >
               {keyword}
             </button>

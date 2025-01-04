@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/repository";
 
-/*export async function GET(request: Request) {
+export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const keyword = searchParams.get("keyword");
 
@@ -12,28 +12,7 @@ import { connectDB } from "@/lib/repository";
     .toArray();
 
   return NextResponse.json(posts);
-}*/
-
-const mockData = [
-  {
-    id: 1,
-    title: "Skincare Tips",
-    description: "All about skincare",
-    keyword: "Skincare",
-  },
-  {
-    id: 2,
-    title: "Makeup Ideas",
-    description: "Perfect makeup for you",
-    keyword: "Makeup",
-  },
-  {
-    id: 3,
-    title: "Haircare Routine",
-    description: "Best haircare tips",
-    keyword: "Haircare",
-  },
-];
+}
 
 /*export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -41,7 +20,7 @@ const mockData = [
 
   const filteredData = mockData.filter((post) => post.keyword === keyword);
   return NextResponse.json(filteredData);
-}*/
+}
 /*export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const keyword = searchParams.get("keyword");
@@ -55,7 +34,7 @@ const mockData = [
   return NextResponse.json(posts);
 }*/
 
-export async function GET(request: Request) {
+/*export async function GET(request: Request) {
   console.log("API 호출 트리거됨");
 
   try {
@@ -75,7 +54,7 @@ export async function GET(request: Request) {
 
     const posts = await db
       .collection("posts")
-      .find({ keywords: { $in: [keyword] } })
+      .find({ keywords: keyword })
       .toArray();
     console.log("쿼리 결과:", posts);
 
@@ -91,4 +70,27 @@ export async function GET(request: Request) {
       { status: 500 }
     );
   }
+}*/
+
+/*export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const keyword = searchParams.get("keyword");
+
+  if (!keyword) {
+    return NextResponse.json({ error: "Keyword is required" }, { status: 400 });
+  }
+
+  const db = await connectDB();
+  const posts = await db
+    .collection("posts")
+    .find({ keywords: keyword })
+    .toArray();
+  return NextResponse.json(posts);
 }
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  const db = await connectDB();
+  const result = await db.collection("posts").insertOne(body);
+  return NextResponse.json(result.ops[0], { status: 201 });
+}*/
