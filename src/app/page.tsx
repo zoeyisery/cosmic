@@ -159,10 +159,9 @@ import "../styles/layout.css";
 
 const Page = () => {
   return (
-    <div className="main-container">
-      <div className="content">
-        {/* 본문 영역: 포스트 그리드 */}
-        <main className="flex-1">
+    <div>
+      <div className="w-full mt-4">
+        <main>
           <PostGrid />
         </main>
       </div>
