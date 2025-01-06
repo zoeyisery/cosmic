@@ -27,7 +27,7 @@ const HomePage = () => {
         onKeywordSelect={handleKeywordSelect}
       />
       {error && <p className="text-red-500">{error}</p>}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+      <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <Card
             key={post.id}
@@ -80,7 +80,7 @@ const HomePage = () => {
       />
 
       <h1 className="text-2xl font-bold">Posts</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <div key={post.id} className="p-4 border rounded shadow">
             <h2 className="text-lg font-semibold">{post.title}</h2>
@@ -124,7 +124,7 @@ const HomePage = () => {
 
 
       {selectedKeyword && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
 
         </div>
       )}

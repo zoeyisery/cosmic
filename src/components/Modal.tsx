@@ -1,7 +1,51 @@
 "use client";
 
 import React, { useState } from "react";
-const Modal = ({
+
+interface ModalProps {
+  closeModal: () => void;
+}
+const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+
+  const keywords = ["Beauty", "Skin", "Makeup", "Hair"]; // 예시 키워드 목록
+
+  const handleKeywordSelect = (keyword: string) => {
+    setSelectedKeyword(keyword);
+    // 키워드를 선택하고 모달을 닫을 수 있음
+    alert(`Selected keyword: ${keyword}`);
+    closeModal(); // 선택 후 모달 닫기
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="p-6 bg-white rounded-lg shadow-lg w-96">
+        <h2 className="mb-4 text-xl font-bold">Select a Keyword</h2>
+        <div className="space-y-2">
+          {keywords.map((keyword) => (
+            <button
+              key={keyword}
+              className="w-full p-2 text-left bg-gray-200 rounded hover:bg-gray-300"
+              onClick={() => handleKeywordSelect(keyword)}
+            >
+              {keyword}
+            </button>
+          ))}
+        </div>
+        <div className="mt-4 text-right">
+          <button
+            onClick={closeModal}
+            className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/*const Modal = ({
   isOpen,
   //onKeywordSelect,
   onClose,
@@ -28,12 +72,12 @@ const Modal = ({
   if (!isOpen) return null; // 모달이 닫혀 있으면 렌더링하지 않음
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded shadow-lg w-full max-w-lg">
-        <h2 className="text-lg font-bold mb-4 text-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-full max-w-lg p-6 bg-white rounded shadow-lg">
+        <h2 className="mb-4 text-lg font-bold text-center">
           키워드를 선택하세요
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {keywords.map((keyword) => (
             <button
               key={keyword}
@@ -51,7 +95,7 @@ const Modal = ({
         <div className="mt-4 text-center">
           <button
             onClick={handleClose}
-            className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
           >
             Close
           </button>
@@ -59,6 +103,6 @@ const Modal = ({
       </div>
     </div>
   );
-};
+};*/
 
 export default Modal;
