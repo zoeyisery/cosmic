@@ -69,6 +69,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store"; // Redux 상태 타입 임포트
 import PostCard from "./PostCard"; // 포스트 카드 컴포넌트
+import "../styles/postcard.css";
 
 const PostList: React.FC = () => {
   const selectedKeyword = useSelector(
