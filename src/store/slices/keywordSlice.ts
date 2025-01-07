@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+/*import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface KeywordState {
   selectedKeyword: string | null;
@@ -11,7 +11,7 @@ const initialState: KeywordState = {
 };
 
 const keywordSlice = createSlice({
-  name: "keyword",
+  name: "keywords",
   initialState,
   reducers: {
     selectKeyword(state, action: PayloadAction<string>) {
@@ -24,4 +24,30 @@ const keywordSlice = createSlice({
 });
 
 export const { selectKeyword, setKeywords } = keywordSlice.actions;
+export default keywordSlice.reducer;*/
+
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface KeywordState {
+  selectedKeyword: string | null;
+}
+
+const initialState: KeywordState = {
+  selectedKeyword: null,
+};
+
+const keywordSlice = createSlice({
+  name: "keywords",
+  initialState,
+  reducers: {
+    setKeyword: (state, action: PayloadAction<string>) => {
+      state.selectedKeyword = action.payload;
+    },
+    clearKeyword: (state) => {
+      state.selectedKeyword = null;
+    },
+  },
+});
+
+export const { setKeyword, clearKeyword } = keywordSlice.actions;
 export default keywordSlice.reducer;

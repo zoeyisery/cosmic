@@ -1,31 +1,84 @@
 "use client";
-
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setKeyword } from "../store/slices/keywordSlice";
 
 interface ModalProps {
   closeModal: () => void;
 }
-const Modal: React.FC<ModalProps> = ({ closeModal }) => {
-  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
 
-  const keywords = ["Beauty", "Skin", "Makeup", "Hair"]; // 예시 키워드 목록
+const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+  const dispatch = useDispatch();
+
+  const keywords = ["Beauty", "Skin", "Makeup", "Hair"];
 
   const handleKeywordSelect = (keyword: string) => {
-    setSelectedKeyword(keyword);
-    // 키워드를 선택하고 모달을 닫을 수 있음
-    alert(`Selected keyword: ${keyword}`);
-    closeModal(); // 선택 후 모달 닫기
+    dispatch(setKeyword(keyword)); // 키워드를 Redux 상태에 저장
+    closeModal(); // 모달 닫기
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="p-6 bg-white rounded-lg shadow-lg w-96">
         <h2 className="mb-4 text-xl font-bold">Select a Keyword</h2>
-        <div className="space-y-2">
+        <div>
           {keywords.map((keyword) => (
             <button
               key={keyword}
-              className="w-full p-2 text-left bg-gray-200 rounded hover:bg-gray-300"
+              className="w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300"
+              onClick={() => handleKeywordSelect(keyword)}
+            >
+              {keyword}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={closeModal}
+          className="px-4 py-2 mt-4 text-white bg-red-500 rounded"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
+/*import React, { useState } from "react";
+
+interface ModalProps {
+  closeModal: () => void;
+}
+const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
+
+  const keywords = ["Beauty", "Skincare", "Makeup"]; // 예시 키워드 목록
+
+  const handleKeywordSelect = (keyword: string) => {
+    setSelectedKeywords((prevKeywords) => {
+      if (prevKeywords.includes(keyword)) {
+        // 이미 선택된 키워드가 있다면 제거
+        return prevKeywords.filter((kw) => kw !== keyword);
+      } else {
+        // 선택되지 않은 키워드를 추가
+        return [...prevKeywords, keyword];
+      }
+    });
+  };
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="p-6 bg-white rounded-lg shadow-lg w-96">
+        <h2 className="mb-4 text-xl font-bold">Select a Keyword</h2>
+        <div className="space-x-2 space-y-2">
+          {keywords.map((keyword) => (
+            <button
+              key={keyword}
+              className={`w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300 ${
+                selectedKeywords.includes(keyword)
+                  ? "bg-blue-500 text-white"
+                  : ""
+              }`}
               onClick={() => handleKeywordSelect(keyword)}
             >
               {keyword}
@@ -43,59 +96,52 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
       </div>
     </div>
   );
-};
+};*/
+/*import React, { useState } from "react";
 
-/*const Modal = ({
-  isOpen,
-  //onKeywordSelect,
-  onClose,
-}: {
-  isOpen: boolean;
-  //onKeywordSelect: (keyword: string) => void;
-  onClose: () => void;
-}) => {
-  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+interface ModalProps {
+  closeModal: () => void;
+}
+const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+  const [selectedKeywords, setSelectedKeywords] = useState<string[]>([]);
 
-  const keywords = ["Skincare", "Makeup", "Haircare", "Fragrance"]; // 예제 키워드
+  const keywords = ["Beauty", "Skincare", "Makeup"]; // 예시 키워드 목록
 
-  const handleKeywordClick = (keyword: string) => {
-    setSelectedKeyword(keyword); // 선택된 키워드 업데이트
+  const handleKeywordSelect = (keyword: string) => {
+    setSelectedKeywords((prevKeywords) => {
+      if (prevKeywords.includes(keyword)) {
+        // 이미 선택된 키워드가 있다면 제거
+        return prevKeywords.filter((kw) => kw !== keyword);
+      } else {
+        // 선택되지 않은 키워드를 추가
+        return [...prevKeywords, keyword];
+      }
+    });
   };
-
-  const handleClose = () => {
-    if (selectedKeyword) {
-      //onKeywordSelect(selectedKeyword); // 선택된 키워드 전달
-    }
-    onClose(); // 모달 닫기
-  };
-
-  if (!isOpen) return null; // 모달이 닫혀 있으면 렌더링하지 않음
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-full max-w-lg p-6 bg-white rounded shadow-lg">
-        <h2 className="mb-4 text-lg font-bold text-center">
-          키워드를 선택하세요
-        </h2>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="p-6 bg-white rounded-lg shadow-lg w-96">
+        <h2 className="mb-4 text-xl font-bold">Select a Keyword</h2>
+        <div className="space-x-2 space-y-2">
           {keywords.map((keyword) => (
             <button
               key={keyword}
-              className={`px-4 py-2 rounded ${
-                selectedKeyword === keyword
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-200 text-gray-800"
-              } hover:bg-blue-500 hover:text-white`}
-              onClick={() => handleKeywordClick(keyword)}
+              className={`w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300 ${
+                selectedKeywords.includes(keyword)
+                  ? "bg-blue-500 text-white"
+                  : ""
+              }`}
+              onClick={() => handleKeywordSelect(keyword)}
             >
               {keyword}
             </button>
           ))}
         </div>
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-right">
           <button
-            onClick={handleClose}
-            className="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+            onClick={closeModal}
+            className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
           >
             Close
           </button>
@@ -104,5 +150,3 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
     </div>
   );
 };*/
-
-export default Modal;

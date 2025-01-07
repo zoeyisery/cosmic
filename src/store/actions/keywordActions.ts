@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+/*import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectKeyword } from "@/store/slices/keywordSlice";
 import { closeModal } from "@/store/slices/modalSlice";
 
@@ -10,3 +10,11 @@ export const handleKeywordSelection = createAsyncThunk(
     dispatch(closeModal()); // 모달 닫기
   }
 );
+*/
+
+import { AppDispatch } from "../store";
+import { setKeyword } from "../slices/keywordSlice";
+
+export const selectKeyword = (keyword: string) => (dispatch: AppDispatch) => {
+  dispatch(setKeyword(keyword)); // 선택된 키워드 상태 업데이트
+};
