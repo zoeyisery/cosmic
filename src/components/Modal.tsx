@@ -1,4 +1,84 @@
-"use client";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setKeyword } from "../store/slices/keywordSlice"; // Redux 액션 임포트
+
+interface ModalProps {
+  closeModal: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+  const dispatch = useDispatch();
+  const [keywords, setKeywords] = useState<string[]>([]); // 키워드 상태
+  const [loading, setLoading] = useState<boolean>(true); // 데이터 로딩 상태
+  const [error, setError] = useState<string | null>(null); // 에러 상태
+
+  // MongoDB에서 키워드 목록을 가져오는 함수
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      try {
+        const response = await fetch("/api/keywords");
+        const data = await response.json();
+
+        if (response.ok) {
+          setKeywords(data.map((item: { keyword: string }) => item.keyword)); // 키워드 배열을 상태에 저장
+        } else {
+          setError(data.message || "Failed to fetch keywords");
+        }
+      } catch (err) {
+        setError("Error fetching keywords");
+      } finally {
+        setLoading(false); // 로딩 상태 변경
+      }
+    };
+
+    fetchKeywords();
+  }, []); // 컴포넌트가 마운트될 때 한 번만 실행
+
+  const handleKeywordSelect = (keyword: string) => {
+    dispatch(setKeyword(keyword)); // 선택된 키워드를 Redux 상태에 저장
+    closeModal(); // 모달 닫기
+  };
+
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 중 표시
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>; // 에러 발생 시 메시지 표시
+  }
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="p-6 bg-white rounded-lg shadow-lg w-96">
+        <h2 className="mb-4 text-xl font-bold">Select a Keyword</h2>
+        <div className="space-y-2">
+          {keywords.length > 0 ? (
+            keywords.map((keyword) => (
+              <button
+                key={keyword}
+                className="w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300"
+                onClick={() => handleKeywordSelect(keyword)}
+              >
+                {keyword}
+              </button>
+            ))
+          ) : (
+            <p>No keywords available</p> // 키워드가 없을 경우 메시지 표시
+          )}
+        </div>
+        <button
+          onClick={closeModal}
+          className="px-4 py-2 mt-4 text-white bg-red-500 rounded"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
+/*"use client";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { setKeyword } from "../store/slices/keywordSlice";
@@ -10,7 +90,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   const dispatch = useDispatch();
 
-  const keywords = ["Beauty", "Skin", "Makeup", "Hair"];
+  const keywords = ["Beauty", "Skincare", "Makeup", "Hair"];
 
   const handleKeywordSelect = (keyword: string) => {
     dispatch(setKeyword(keyword)); // 키워드를 Redux 상태에 저장
@@ -43,7 +123,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   );
 };
 
-export default Modal;
+export default Modal;*/
 /*import React, { useState } from "react";
 
 interface ModalProps {
