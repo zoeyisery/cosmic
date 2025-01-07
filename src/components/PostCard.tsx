@@ -2,15 +2,28 @@ import React, { useEffect, useState } from "react";
 import "../styles/postcard.css";
 
 interface PostCardProps {
-  size: "small" | "medium" | "large";
-  content: string;
+  //size: "small" | "medium" | "large";
+  size: "large";
+  content: {
+    _id: string;
+    title: string;
+    description: string;
+  };
 }
 
 const PostCard: React.FC<PostCardProps> = ({ size, content }) => {
+  if (!content) {
+    return <div>Content is missing</div>; // content가 없다면 fallback 메시지 표시
+  }
+
+  const { _id, title, description } = content || {}; // // content가 없다면 기본값으로 빈 객체 사용 옵셔널 체이닝
+
   return (
     <div className={`post-card ${size}`}>
       <div className="post-card-content">
-        <p>{content}</p>
+        <p className="post-card-id">ID: {_id}</p> {/* ID 표시 */}
+        <h3 className="post-card-title">{title}</h3> {/* 제목 표시 */}
+        <p className="post-card-description">{description}</p> {/* 설명 표시 */}
       </div>
     </div>
   );

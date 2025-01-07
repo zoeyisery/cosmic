@@ -28,26 +28,33 @@ export default keywordSlice.reducer;*/
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// keyword 배열을 관리하는 상태
 interface KeywordState {
-  selectedKeyword: string | null;
+  selectedKeywords: string[]; // 여러 개의 선택된 키워드를 저장
 }
 
 const initialState: KeywordState = {
-  selectedKeyword: null,
+  selectedKeywords: [], // 초기 선택된 키워드가 없음
 };
 
 const keywordSlice = createSlice({
-  name: "keywords",
+  name: "keyword",
   initialState,
   reducers: {
     setKeyword: (state, action: PayloadAction<string>) => {
-      state.selectedKeyword = action.payload;
-    },
-    clearKeyword: (state) => {
-      state.selectedKeyword = null;
+      // 키워드 선택 시 중복 선택 방지 및 추가/제거 처리
+      const keyword = action.payload;
+      if (state.selectedKeywords.includes(keyword)) {
+        state.selectedKeywords = state.selectedKeywords.filter(
+          (k) => k !== keyword
+        ); // 이미 선택된 키워드 제거
+      } else {
+        state.selectedKeywords.push(keyword); // 새로운 키워드 추가
+      }
     },
   },
 });
 
-export const { setKeyword, clearKeyword } = keywordSlice.actions;
+export const { setKeyword } = keywordSlice.actions;
+
 export default keywordSlice.reducer;

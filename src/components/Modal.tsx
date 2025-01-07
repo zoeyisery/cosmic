@@ -1,5 +1,6 @@
+"use client";
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setKeyword } from "../store/slices/keywordSlice"; // Redux 액션 임포트
 
 interface ModalProps {
@@ -8,6 +9,9 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   const dispatch = useDispatch();
+  const selectedKeywords = useSelector(
+    (state: any) => state.keyword.selectedKeywords
+  ); // Redux 상태에서 선택된 키워드 가져오기
   const [keywords, setKeywords] = useState<string[]>([]); // 키워드 상태
   const [loading, setLoading] = useState<boolean>(true); // 데이터 로딩 상태
   const [error, setError] = useState<string | null>(null); // 에러 상태
@@ -36,7 +40,6 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
 
   const handleKeywordSelect = (keyword: string) => {
     dispatch(setKeyword(keyword)); // 선택된 키워드를 Redux 상태에 저장
-    closeModal(); // 모달 닫기
   };
 
   if (loading) {
@@ -51,12 +54,16 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="p-6 bg-white rounded-lg shadow-lg w-96">
         <h2 className="mb-4 text-xl font-bold">Select a Keyword</h2>
-        <div className="space-y-2">
+        <div className="space-x-3 space-y-2">
           {keywords.length > 0 ? (
             keywords.map((keyword) => (
               <button
                 key={keyword}
-                className="w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300"
+                className={`w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300 ${
+                  selectedKeywords.includes(keyword)
+                    ? "bg-blue-500 text-white"
+                    : ""
+                }`}
                 onClick={() => handleKeywordSelect(keyword)}
               >
                 {keyword}

@@ -73,7 +73,7 @@ import "../styles/postcard.css";
 
 const PostList: React.FC = () => {
   const selectedKeyword = useSelector(
-    (state: RootState) => state.keyword.selectedKeyword
+    (state: RootState) => state.keyword.selectedKeywords
   ); // 선택된 키워드 가져오기
   const [posts, setPosts] = useState<any[]>([]); // 포스트 목록 상태
 
@@ -105,7 +105,9 @@ const PostList: React.FC = () => {
   return (
     <div className="post-list">
       {posts.length > 0 ? (
-        posts.map((post) => <PostCard content={post.content} size={"large"} />)
+        posts.map((post) => (
+          <PostCard key={post._id} content={post} size={post.size} />
+        ))
       ) : (
         <p>No posts found</p>
       )}
