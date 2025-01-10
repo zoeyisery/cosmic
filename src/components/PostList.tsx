@@ -109,7 +109,9 @@ const PostList: React.FC = () => {
           <PostCard key={post._id} content={post} size={post.size} />
         ))
       ) : (
-        <p>No posts found</p>
+        <div className="no-posts-message">
+          <p>No posts found</p>
+        </div>
       )}
     </div>
   );
