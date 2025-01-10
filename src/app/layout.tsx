@@ -5,6 +5,7 @@ import Navigation from "../components/Navigation";
 import "../styles/globals.css";
 import { Provider } from "react-redux";
 import store from "../store/store"; // store 경로에 맞게 설정
+import Footer from "@/components/Footer";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -20,6 +21,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               <Header />
               <main> {children}</main>
               <Navigation />
+              <Footer />
             </div>
           </body>
         </Provider>
