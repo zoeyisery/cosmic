@@ -8,6 +8,7 @@ interface PostCardProps {
     _id: string;
     title: string;
     description: string;
+    imageUrl: string;
   };
 }
 
@@ -16,7 +17,7 @@ const PostCard: React.FC<PostCardProps> = ({ size, content }) => {
     return <div>Content is missing</div>; // content가 없다면 fallback 메시지 표시
   }
 
-  const { _id, title, description } = content || {}; // // content가 없다면 기본값으로 빈 객체 사용 옵셔널 체이닝
+  const { _id, title, description, imageUrl } = content || {}; // // content가 없다면 기본값으로 빈 객체 사용 옵셔널 체이닝
 
   return (
     <div className={`post-card ${size}`}>
@@ -24,6 +25,9 @@ const PostCard: React.FC<PostCardProps> = ({ size, content }) => {
         <p className="post-card-id">ID: {_id}</p> {/* ID 표시 */}
         <h3 className="post-card-title">{title}</h3> {/* 제목 표시 */}
         <p className="post-card-description">{description}</p> {/* 설명 표시 */}
+        {imageUrl && (
+          <img src={imageUrl} alt={title} className="post-card-image" />
+        )}
       </div>
     </div>
   );
