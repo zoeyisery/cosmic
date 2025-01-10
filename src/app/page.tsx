@@ -154,7 +154,7 @@ const HomePage = () => {
 
 export default HomePage;*/
 import React from "react";
-import PostGrid from "../components/PostGrid";
+import ContentGrid from "../components/ContentGrid";
 import "../styles/layout.css";
 
 const Page = () => {
@@ -162,7 +162,7 @@ const Page = () => {
     <div>
       <div className="w-full mt-4">
         <main>
-          <PostGrid />
+          <ContentGrid />
         </main>
       </div>
     </div>

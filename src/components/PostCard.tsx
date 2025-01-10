@@ -17,7 +17,7 @@ const PostCard: React.FC<PostCardProps> = ({ size, content }) => {
     return <div>Content is missing</div>; // content가 없다면 fallback 메시지 표시
   }
 
-  const { _id, title, description, imageUrl } = content || {}; // // content가 없다면 기본값으로 빈 객체 사용 옵셔널 체이닝
+  const { _id, title, description, imageUrl } = content || {}; // content가 없다면 기본값으로 빈 객체 사용 옵셔널 체이닝
 
   return (
     <div className={`post-card ${size}`}>

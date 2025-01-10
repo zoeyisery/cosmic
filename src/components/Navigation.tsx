@@ -23,10 +23,7 @@ const Navigation = () => {
         <Link href="/post">
           <FontAwesomeIcon icon={faPenToSquare} className="text-[16px]" />
         </Link>
-        <Link href="/community">
-          <FontAwesomeIcon icon={faComments} />
-        </Link>
-        <Link href="/login">
+        <Link href="/auth">
           <FontAwesomeIcon icon={faRightToBracket} />
         </Link>
       </ul>
