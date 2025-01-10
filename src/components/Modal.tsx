@@ -15,6 +15,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   const [keywords, setKeywords] = useState<string[]>([]); // 키워드 상태
   const [loading, setLoading] = useState<boolean>(true); // 데이터 로딩 상태
   const [error, setError] = useState<string | null>(null); // 에러 상태
+  const [localKeyword, setLocalKeyword] = useState<string | null>(null); // 로컬 상태로 선택된 키워드 관리
 
   // MongoDB에서 키워드 목록을 가져오는 함수
   useEffect(() => {
@@ -39,7 +40,14 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   }, []); // 컴포넌트가 마운트될 때 한 번만 실행
 
   const handleKeywordSelect = (keyword: string) => {
-    dispatch(setKeyword(keyword)); // 선택된 키워드를 Redux 상태에 저장
+    // 선택된 키워드를 Redux 상태에 저장
+    //dispatch(setKeyword(keyword));
+    setLocalKeyword(keyword); // 로컬 상태에서 선택된 키워드 저장
+  };
+
+  const handleClose = () => {
+    dispatch(setKeyword(localKeyword || "")); // Redux 상태에 선택된 키워드를 저장
+    closeModal(); // `Close` 버튼을 클릭할 때 모달 닫기
   };
 
   if (loading) {
@@ -60,11 +68,9 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
               <button
                 key={keyword}
                 className={`w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300 ${
-                  selectedKeywords.includes(keyword)
-                    ? "bg-blue-500 text-white"
-                    : ""
+                  localKeyword === keyword ? "bg-blue-500 text-white" : ""
                 }`}
-                onClick={() => handleKeywordSelect(keyword)}
+                onClick={() => handleKeywordSelect(keyword)} // 키워드 선택
               >
                 {keyword}
               </button>
@@ -74,7 +80,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
           )}
         </div>
         <button
-          onClick={closeModal}
+          onClick={handleClose} // "close" 버튼 클릭 시에만 모달 닫히도록
           className="px-4 py-2 mt-4 text-white bg-red-500 rounded"
         >
           Close
