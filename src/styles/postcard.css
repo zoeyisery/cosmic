@@ -39,3 +39,11 @@
 .no-posts-message p {
   margin: 0;
 }
+
+.post-card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* 이미지를 카드 크기에 맞게 자동으로 자르기 */
+  border-radius: 8px;
+  margin-top: 10px;
+}

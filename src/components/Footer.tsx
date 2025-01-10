@@ -23,7 +23,7 @@ export default Footer;*/
 
 const Footer = () => {
   return (
-    <footer className="bottom-0 w-full p-4 text-black bg-white">
+    <footer className="bottom-0 w-full p-4 pb-16 text-black bg-white ">
       <div className="flex items-center justify-between mx-auto">
         <div className="text-xs text-gray-400">© 2025 Cosmic</div>
         <div className="flex space-x-4 text-xs">
