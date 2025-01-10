@@ -11,7 +11,7 @@ const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const selectedKeyword = useSelector(
-    (state: RootState) => state.keyword.selectedKeyword
+    (state: RootState) => state.keyword.selectedKeywords
   ); // Redux에서 키워드 상태 가져오기
 
   const openModal = () => {
@@ -29,9 +29,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-10 bg-white ">
-      {/* 텍스트와 아이콘을 수평으로 정렬 */}
       <div className="flex items-center justify-between max-w-screen-xl mx-auto">
-        {/* TailwindCSS 클래스로 스타일 적용 */}
         <h1 className="font-bold text-yellow-400 text-md">COSMIC</h1>
         <div className="flex space-x-4">
           <button>
