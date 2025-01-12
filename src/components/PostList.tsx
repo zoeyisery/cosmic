@@ -6,12 +6,34 @@ import { RootState } from "../store/store"; // Redux 상태 타입 임포트
 import PostCard from "./PostCard"; // 포스트 카드 컴포넌트
 import "../styles/postcard.css";
 
-const PostList: React.FC = () => {
+interface PostListProps {
+  size: "xs" | "s" | "m" | "l" | "xl"; // PostList 크기
+}
+
+const PostList: React.FC<PostListProps> = ({ size }) => {
   const selectedKeywords = useSelector(
     (state: RootState) => state.keyword.selectedKeywords
   ); // 선택된 키워드 가져오기
 
   const [posts, setPosts] = useState<any[]>([]); // 포스트 목록 상태
+
+  // 각 사이즈별로 렌더링할 포스트의 개수를 정합니다
+  const getPostCountForSize = () => {
+    switch (size) {
+      case "xs":
+        return 3; // xs 사이즈에는 3개의 포스트
+      case "s":
+        return 2; // s 사이즈에는 2개의 포스트
+      case "m":
+        return 1; // m 사이즈에는 1개의 포스트
+      case "l":
+        return 1; // l 사이즈에는 1개의 포스트
+      case "xl":
+        return 1; // xl 사이즈에는 1개의 포스트
+      default:
+        return 1;
+    }
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -30,8 +52,127 @@ const PostList: React.FC = () => {
         const response = await fetch(url);
         const data = await response.json();
 
-        if (Array.isArray(data)) {
-          setPosts(data); // 포스트 목록 상태에 저장
+        if (Array.isArray(data) && data.length > 0) {
+          // 랜덤으로 선택할 개수만큼 포스트 선택
+          const count = getPostCountForSize();
+          const randomPosts = [];
+          const availablePosts = [...data];
+
+          // 랜덤으로 포스트 선택 (중복되지 않게 선택)
+          while (randomPosts.length < count && availablePosts.length > 0) {
+            const randomIndex = Math.floor(
+              Math.random() * availablePosts.length
+            );
+            const randomPost = availablePosts.splice(randomIndex, 1)[0]; // 선택한 포스트를 배열에서 제거
+            randomPosts.push(randomPost);
+          }
+
+          setPosts(randomPosts); // 랜덤으로 선택된 포스트 상태에 저장
+        } else {
+          setPosts([]); // 배열이 아니면 빈 배열로 설정
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        setPosts([]); // 오류 발생 시 빈 배열로 설정
+      }
+    };
+
+    // 선택된 키워드가 있을 경우만 API 호출
+    if (selectedKeywords.length > 0) {
+      fetchPosts();
+    } else {
+      setPosts([]); // 키워드가 없으면 포스트 없다고 설정
+    }
+  }, [selectedKeywords, size]); // 선택된 키워드와 size가 변경될 때마다 실행
+
+  return (
+    <div className={`post-list ${size}`}>
+      <div className="post-list-row">
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <PostCard key={post._id} content={post} size={size} />
+          ))
+        ) : (
+          <div className="no-posts-message">
+            <p>No posts found</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default PostList;
+/*"use client";
+
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store"; // Redux 상태 타입 임포트
+import PostCard from "./PostCard"; // 포스트 카드 컴포넌트
+import "../styles/postcard.css";
+
+interface PostListProps {
+  size: "xs" | "s" | "m" | "l" | "xl"; // PostList 크기
+}
+
+const PostList: React.FC<PostListProps> = ({ size }) => {
+  const selectedKeywords = useSelector(
+    (state: RootState) => state.keyword.selectedKeywords
+  ); // 선택된 키워드 가져오기
+
+  const [posts, setPosts] = useState<any[]>([]); // 포스트 목록 상태
+
+  // 각 사이즈별로 렌더링할 포스트의 개수를 정합니다
+  const getPostCountForSize = () => {
+    switch (size) {
+      case "xs":
+        return 3; // xs 사이즈에는 3개의 포스트
+      case "s":
+        return 2; // s 사이즈에는 2개의 포스트
+      case "m":
+        return 1; // m 사이즈에는 1개의 포스트
+      case "l":
+        return 1; // l 사이즈에는 1개의 포스트
+      case "xl":
+        return 1; // xl 사이즈에는 1개의 포스트
+      default:
+        return 1;
+    }
+  };
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        let url = "/api/posts";
+
+        // 선택된 키워드가 하나일 경우
+        if (selectedKeywords.length === 1) {
+          url = `/api/posts?keyword=${selectedKeywords[0]}`;
+        }
+        // 여러 키워드일 경우
+        else if (selectedKeywords.length > 1) {
+          url = `/api/posts?keywords=${selectedKeywords.join(",")}`;
+        }
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          // 랜덤으로 선택할 개수만큼 포스트 선택
+          const count = getPostCountForSize();
+          const randomPosts = [];
+          const availablePosts = [...data];
+
+          // 랜덤으로 포스트 선택 (중복되지 않게 선택)
+          while (randomPosts.length < count && availablePosts.length > 0) {
+            const randomIndex = Math.floor(
+              Math.random() * availablePosts.length
+            );
+            const randomPost = availablePosts.splice(randomIndex, 1)[0]; // 선택한 포스트를 배열에서 제거
+            randomPosts.push(randomPost);
+          }
+
+          setPosts(randomPosts); // 랜덤으로 선택된 포스트 상태에 저장
         } else {
           setPosts([]); // 배열이 아니면 빈 배열로 설정
         }
@@ -47,14 +188,88 @@ const PostList: React.FC = () => {
     } else {
       setPosts([]); // 키워드가 없으면 빈 목록으로 초기화
     }
+  }, [selectedKeywords, size]); // 선택된 키워드와 size가 변경될 때마다 실행
+
+  return (
+    <div className={`post-list ${size}`}>
+      <div className="post-list-row">
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <PostCard key={post._id} content={post} size={size} />
+          ))
+        ) : (
+          <div className="no-posts-message">
+            <p>No posts found</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default PostList;*/
+
+/*"use client";
+
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store"; // Redux 상태 타입 임포트
+import PostCard from "./PostCard"; // 포스트 카드 컴포넌트
+import "../styles/postcard.css";
+
+interface PostListProps {
+  size: "xs" | "s" | "m" | "l" | "xl"; // PostList 크기
+}
+
+const PostList: React.FC<PostListProps> = ({ size }) => {
+  const selectedKeywords = useSelector(
+    (state: RootState) => state.keyword.selectedKeywords
+  ); // 선택된 키워드 가져오기
+
+  const [post, setPost] = useState<any | null>(null); //랜덤으로 선택된 포스트 상태
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        let url = "/api/posts";
+
+        // 선택된 키워드가 하나일 경우
+        if (selectedKeywords.length === 1) {
+          url = `/api/posts?keyword=${selectedKeywords[0]}`;
+        }
+        // 여러 키워드일 경우
+        else if (selectedKeywords.length > 1) {
+          url = `/api/posts?keywords=${selectedKeywords.join(",")}`;
+        }
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          // 랜덤으로 하나의 포스트 선택
+          const randomPost = data[Math.floor(Math.random() * data.length)];
+          setPost(randomPost); // 랜덤 포스트 상태에 저장
+        } else {
+          setPost(null); // 포스트가 없으면 null로 설정
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        setPost(null); // 오류 발생 시 빈 배열로 설정
+      }
+    };
+
+    // 선택된 키워드가 있을 경우만 API 호출
+    if (selectedKeywords.length > 0) {
+      fetchPosts();
+    } else {
+      setPost(null); // 키워드가 없으면 빈 목록으로 초기화
+    }
   }, [selectedKeywords]); // 선택된 키워드가 변경될 때마다 실행
 
   return (
     <div className="post-list">
-      {posts.length > 0 ? (
-        posts.map((post) => (
-          <PostCard key={post._id} content={post} size={post.size} />
-        ))
+      {post ? (
+        <PostCard key={post._id} content={post} size={size} />
       ) : (
         <div className="no-posts-message">
           <p>No posts found</p>
@@ -64,7 +279,7 @@ const PostList: React.FC = () => {
   );
 };
 
-export default PostList;
+export default PostList;*/
 /*"use client";
 
 import React, { useEffect, useState } from "react";

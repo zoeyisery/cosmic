@@ -3,23 +3,49 @@
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  grid-column: span 2;
-  grid-row: span 10;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+/* 포스트 카드가 가로로 배치되도록 grid 사용 */
+.post-list-row {
+  display: grid;
+  gap: 16px; /* 카드 사이의 간격 */
 }
 
-.post-card.large {
-  grid-column: span 2;
-  grid-row: span 10;
+/* xs 사이즈에서는 3개의 카드가 한 줄에 배치 */
+.post-list.xs .post-list-row {
+  grid-template-columns: repeat(3, 1fr); /* 3개 컬럼 */
 }
 
-.post-card.medium {
-  grid-column: span 2;
-  grid-row: span 7;
+/* s 사이즈에서는 2개의 카드가 한 줄에 배치 */
+.post-list.s .post-list-row {
+  grid-template-columns: repeat(2, 1fr); /* 2개 컬럼 */
 }
 
-.post-card.small {
-  grid-column: span 2;
-  grid-row: span 5;
+/* m, l, xl 사이즈에서는 1개의 카드만 한 줄에 배치 */
+.post-list.m .post-list-row,
+.post-list.l .post-list-row,
+.post-list.xl .post-list-row {
+  grid-template-columns: 1fr; /* 1개 컬럼 */
+}
+
+/* XL 사이즈: 가장 큰 정사각형 */
+.post-card.xl {
+  width: 100%; /* 한 카드가 전체 너비 차지 */
+  aspect-ratio: 1 / 1; /* 정사각형 모양 */
+}
+
+/* M 사이즈: 직사각형 1개가 한 줄 */
+.post-card.m {
+  width: 100%; /* 한 카드가 전체 너비 차지 */
+  aspect-ratio: 3 / 2; /* 직사각형 모양 */
+}
+
+/* L 사이즈: 세로가 조금 더 짧은 직사각형 */
+.post-card.l {
+  width: 100%; /* 한 카드가 전체 너비 차지 */
+  aspect-ratio: 2 / 3; /* 세로 직사각형 모양 */
 }
 
 .no-posts-message {

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/postcard.css";
 
 interface PostCardProps {
-  //size: "small" | "medium" | "large";
-  size: "large";
+  size: "xs" | "s" | "m" | "l" | "xl";
   content: {
     _id: string;
     title: string;
@@ -22,7 +21,6 @@ const PostCard: React.FC<PostCardProps> = ({ size, content }) => {
   return (
     <div className={`post-card ${size}`}>
       <div className="post-card-content">
-        <p className="post-card-id">ID: {_id}</p> {/* ID 표시 */}
         <h3 className="post-card-title">{title}</h3> {/* 제목 표시 */}
         <p className="post-card-description">{description}</p> {/* 설명 표시 */}
         {imageUrl && (
