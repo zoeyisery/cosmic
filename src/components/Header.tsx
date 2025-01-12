@@ -22,10 +22,10 @@ const Header = () => {
     setIsModalOpen(false);
   };
 
-  const handleKeywordSelect = (keyword: string) => {
+  /*const handleKeywordSelect = (keyword: string) => {
     dispatch(setKeyword(keyword)); // Redux 상태 업데이트
     closeModal();
-  };
+  };*/
 
   return (
     <header className="sticky top-0 z-10 bg-white ">

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setKeyword } from "../store/slices/keywordSlice"; // Redux 액션 임포트
+import { setKeyword, removeKeyword } from "../store/slices/keywordSlice"; // Redux 액션 임포트
 
 interface ModalProps {
   closeModal: () => void;
@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   const [keywords, setKeywords] = useState<string[]>([]); // 키워드 상태
   const [loading, setLoading] = useState<boolean>(true); // 데이터 로딩 상태
   const [error, setError] = useState<string | null>(null); // 에러 상태
-  const [localKeyword, setLocalKeyword] = useState<string | null>(null); // 로컬 상태로 선택된 키워드 관리
+  const [localKeywords, setLocalKeywords] = useState<string[]>([]); // 로컬 상태로 선택된 키워드 관리
 
   // MongoDB에서 키워드 목록을 가져오는 함수
   useEffect(() => {
@@ -39,14 +39,38 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
     fetchKeywords();
   }, []); // 컴포넌트가 마운트될 때 한 번만 실행
 
+  useEffect(() => {
+    setLocalKeywords(selectedKeywords); // 모달 열릴 때 선택된 키워드를 초기화
+  }, [selectedKeywords]); // selectedKeywords가 변경될 때마다 초기화
+
   const handleKeywordSelect = (keyword: string) => {
-    // 선택된 키워드를 Redux 상태에 저장
-    //dispatch(setKeyword(keyword));
-    setLocalKeyword(keyword); // 로컬 상태에서 선택된 키워드 저장
+    if (localKeywords.includes(keyword)) {
+      // 이미 선택된 키워드라면 배열에서 제거
+      setLocalKeywords(localKeywords.filter((item) => item !== keyword));
+      //dispatch(removeKeyword(keyword)); // Redux 상태에서 제거
+    } else {
+      // 선택되지 않은 키워드라면 배열에 추가
+      setLocalKeywords([...localKeywords, keyword]);
+      //dispatch(setKeyword([keyword])); // Redux 상태에 추가
+    }
   };
 
   const handleClose = () => {
-    dispatch(setKeyword(localKeyword || "")); // Redux 상태에 선택된 키워드를 저장
+    // 모달 닫을 때 Redux 상태 업데이트
+    // 1. localKeywords에 있는 키워드들을 selectedKeywords로 반영
+    localKeywords.forEach((keyword) => {
+      if (!selectedKeywords.includes(keyword)) {
+        dispatch(setKeyword([keyword])); // 선택된 키워드를 Redux에 추가
+      }
+    });
+
+    // 2. selectedKeywords에서 localKeywords에 포함되지 않는 키워드는 제거
+    selectedKeywords.forEach((keyword) => {
+      if (!localKeywords.includes(keyword)) {
+        dispatch(removeKeyword(keyword)); // 선택되지 않은 키워드를 Redux에서 제거
+      }
+    });
+
     closeModal(); // `Close` 버튼을 클릭할 때 모달 닫기
   };
 
@@ -61,16 +85,17 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="p-6 bg-white rounded-lg shadow-lg w-96">
-        <h2 className="mb-4 text-xl font-bold">Select a Keyword</h2>
         <div className="space-x-3 space-y-2">
           {keywords.length > 0 ? (
             keywords.map((keyword) => (
               <button
                 key={keyword}
                 className={`w-auto p-2 text-center bg-gray-200 rounded-full hover:bg-gray-300 ${
-                  localKeyword === keyword ? "bg-blue-500 text-white" : ""
+                  localKeywords.includes(keyword)
+                    ? "bg-blue-500 text-white"
+                    : ""
                 }`}
-                onClick={() => handleKeywordSelect(keyword)} // 키워드 선택
+                onClick={() => handleKeywordSelect(keyword)} // 키워드 선택/해제
               >
                 {keyword}
               </button>

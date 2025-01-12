@@ -13,21 +13,25 @@ const keywordSlice = createSlice({
   name: "keyword",
   initialState,
   reducers: {
-    setKeyword: (state, action: PayloadAction<string>) => {
-      // 키워드 선택 시 중복 선택 방지 및 추가/제거 처리
-      const keyword = action.payload;
-      if (state.selectedKeywords.includes(keyword)) {
-        state.selectedKeywords = state.selectedKeywords.filter(
-          (k) => k !== keyword
-        ); // 이미 선택된 키워드 제거
-      } else {
-        state.selectedKeywords.push(keyword); // 새로운 키워드 추가
-      }
+    setKeyword: (state, action: PayloadAction<string[]>) => {
+      // action.payload는 선택된 키워드 배열입니다.
+      const newKeywords = action.payload;
+
+      // 기존 선택된 키워드와 새로운 키워드를 병합 (중복 없이)
+      state.selectedKeywords = [
+        ...new Set([...state.selectedKeywords, ...newKeywords]),
+      ];
+    },
+    removeKeyword: (state, action: PayloadAction<string>) => {
+      // 키워드 제거
+      state.selectedKeywords = state.selectedKeywords.filter(
+        (keyword) => keyword !== action.payload
+      );
     },
   },
 });
 
-export const { setKeyword } = keywordSlice.actions;
+export const { setKeyword, removeKeyword } = keywordSlice.actions;
 
 export default keywordSlice.reducer;
 
