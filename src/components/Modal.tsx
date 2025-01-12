@@ -65,7 +65,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
     });
 
     // 2. selectedKeywords에서 localKeywords에 포함되지 않는 키워드는 제거
-    selectedKeywords.forEach((keyword) => {
+    selectedKeywords.forEach((keyword: string) => {
       if (!localKeywords.includes(keyword)) {
         dispatch(removeKeyword(keyword)); // 선택되지 않은 키워드를 Redux에서 제거
       }
