@@ -1,9 +1,71 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useKeywordManager } from "../hooks/useKeywordManager"; // 커스텀 훅 임포트
+import { useKeywordsFetcher } from "../hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
+
+interface ModalProps {
+  closeModal: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ closeModal }) => {
+  const { selectedKeywords, localKeywords, handleKeywordSelect, handleClose } =
+    useKeywordManager(); // 키워드 관리 훅
+  const { keywords, loading, error } = useKeywordsFetcher(); // MongoDB에서 키워드 가져오는 훅
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="relative p-6 bg-white rounded-lg shadow-lg w-96">
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <div className="space-x-3 space-y-2">
+            {keywords.length > 0 ? (
+              keywords.map((keyword) => (
+                <button
+                  key={keyword}
+                  className={`w-auto p-2 text-center text-sm bg-gray-200 rounded-full hover:bg-gray-300 ${
+                    localKeywords.includes(keyword)
+                      ? "bg-blue-500 text-white"
+                      : ""
+                  }`}
+                  onClick={() => handleKeywordSelect(keyword)} // 키워드 선택/해제
+                >
+                  {keyword}
+                </button>
+              ))
+            ) : (
+              <p>No keywords available</p> // 키워드가 없을 경우 메시지 표시
+            )}
+          </div>
+        )}
+        <button
+          onClick={() => {
+            handleClose();
+            closeModal();
+          }} // "close" 버튼 클릭 시에만 모달 닫히도록
+          className="absolute p-2 text-black top-1 right-2"
+        >
+          <FontAwesomeIcon icon={faXmark} className="text-[25px]" />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
+
+/*"use client";
+
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useKeywordManager } from "../hooks/useKeywordManager"; // 커스텀 훅 임포트
+import { useKeywordsFetcher } from "../hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
 
 interface ModalProps {
   closeModal: () => void;
@@ -38,6 +100,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
     fetchKeywords();
   }, []); // 컴포넌트가 마운트될 때 한 번만 실행
 
+  
   if (loading) {
     return <div>Loading...</div>; // 로딩 중 표시
   }
@@ -82,7 +145,7 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   );
 };
 
-export default Modal;
+export default Modal;*/
 /*"use client";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
