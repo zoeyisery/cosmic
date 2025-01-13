@@ -1,20 +1,12 @@
-/*import { createAsyncThunk } from "@reduxjs/toolkit";
-import { selectKeyword } from "@/store/slices/keywordSlice";
-import { closeModal } from "@/store/slices/modalSlice";
-
-// 키워드 선택 및 모달 닫기 액션
-export const handleKeywordSelection = createAsyncThunk(
-  "keywords/handleSelection",
-  async (keyword: string, { dispatch }) => {
-    dispatch(selectKeyword(keyword)); // 키워드 상태 변경
-    dispatch(closeModal()); // 모달 닫기
-  }
-);
-*/
-
 import { AppDispatch } from "../store";
-import { setKeyword } from "../slices/keywordSlice";
+import { setKeyword, removeKeyword } from "../slices/keywordSlice";
 
+// 키워드 선택 처리
 export const selectKeyword = (keyword: string) => (dispatch: AppDispatch) => {
-  dispatch(setKeyword(keyword)); // 선택된 키워드 상태 업데이트
+  dispatch(setKeyword([keyword])); // 선택된 키워드를 Redux 상태에 추가
+};
+
+// 키워드 제거 처리
+export const deselectKeyword = (keyword: string) => (dispatch: AppDispatch) => {
+  dispatch(removeKeyword(keyword)); // 선택되지 않은 키워드를 Redux 상태에서 제거
 };

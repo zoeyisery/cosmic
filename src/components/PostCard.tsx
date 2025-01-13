@@ -20,7 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({ size, content }) => {
 
   return (
     <div className={`post-card ${size}`}>
-      <div className="post-card-content">
+      <div className="text-xs post-card-content">
         <h3 className="post-card-title">{title}</h3> {/* 제목 표시 */}
         <p className="post-card-description">{description}</p> {/* 설명 표시 */}
         {imageUrl && (
