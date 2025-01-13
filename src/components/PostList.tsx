@@ -18,16 +18,16 @@ const PostList: React.FC<PostListProps> = ({ size }) => {
   ); // 선택된 키워드 가져오기
   const dispatch = useDispatch();
 
-  /*const { keywords, loading, error } = useKeywordsFetcher(); // MongoDB에서 키워드 가져오는 훅
+  const { keywords, loading, error } = useKeywordsFetcher(); // MongoDB에서 키워드 가져오는 훅
 
   useEffect(() => {
-    // 키워드가 선택되지 않았으면 랜덤으로 키워드를 선택하고 포스트를 로드
-    if (selectedKeywords.length === 0) {
+    if (selectedKeywords.length === 0 && keywords.length > 0) {
+      // 키워드가 선택되지 않았으면 랜덤 키워드를 선택하여 Redux에 저장
       const randomKeyword =
         keywords[Math.floor(Math.random() * keywords.length)];
       dispatch(setKeyword([randomKeyword])); // 랜덤 키워드를 selectedKeywords에 설정
     }
-  }, [selectedKeywords, dispatch]);*/
+  }, [selectedKeywords, dispatch, keywords]);
 
   // 커스텀 훅을 통해 포스트 가져오기
   const posts = usePostFetcher(selectedKeywords, size);

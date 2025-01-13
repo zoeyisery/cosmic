@@ -15,6 +15,8 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
     useKeywordManager(); // 키워드 관리 훅
   const { keywords, loading, error } = useKeywordsFetcher(); // MongoDB에서 키워드 가져오는 훅
 
+  //const filteredKeywords = keywords.filter(keyword => !selectedKeywords.includes(keyword));
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative p-6 bg-white rounded-lg shadow-lg w-96">
