@@ -28,13 +28,10 @@ const Header = () => {
   };*/
 
   return (
-    <header className="sticky top-0 z-10 bg-white ">
-      <div className="flex items-center justify-between max-w-screen-xl mx-auto">
+    <header className="sticky top-0 z-10 bg-white">
+      <div className="flex items-center justify-between max-w-screen-xl pt-0 mx-auto">
         <h1 className="font-bold text-yellow-400 text-md">COSMIC</h1>
         <div className="flex space-x-4">
-          <button>
-            <FontAwesomeIcon icon={faBell} className="text-[16px]" />
-          </button>
           <button onClick={openModal}>
             <FontAwesomeIcon icon={faList} className="text-[16px]" />
           </button>

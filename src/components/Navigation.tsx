@@ -7,7 +7,7 @@ import {
   faHouse,
   faPenToSquare,
   faRightToBracket,
-  faComments,
+  faBell,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = () => {
@@ -22,6 +22,9 @@ const Navigation = () => {
         </Link>
         <Link href="/post">
           <FontAwesomeIcon icon={faPenToSquare} className="text-[16px]" />
+        </Link>
+        <Link href="/post">
+          <FontAwesomeIcon icon={faBell} className="text-[16px]" />
         </Link>
         <Link href="/auth">
           <FontAwesomeIcon icon={faRightToBracket} />

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useKeywordManager } from "../hooks/useKeywordManager"; // 커스텀 훅 임포트
 import { useKeywordsFetcher } from "../hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
+import "../styles/modal.css";
 
 interface ModalProps {
   closeModal: () => void;
@@ -18,42 +19,47 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   //const filteredKeywords = keywords.filter(keyword => !selectedKeywords.includes(keyword));
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative p-6 bg-white rounded-lg shadow-lg w-96">
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <div className="space-x-3 space-y-2">
-            {keywords.length > 0 ? (
-              keywords.map((keyword) => (
-                <button
-                  key={keyword}
-                  className={`w-auto p-2 text-center text-sm bg-gray-200 rounded-full hover:bg-gray-300 ${
-                    localKeywords.includes(keyword)
-                      ? "bg-blue-500 text-white"
-                      : ""
-                  }`}
-                  onClick={() => handleKeywordSelect(keyword)} // 키워드 선택/해제
-                >
-                  {keyword}
-                </button>
-              ))
-            ) : (
-              <p>No keywords available</p> // 키워드가 없을 경우 메시지 표시
-            )}
-          </div>
-        )}
-        <button
-          onClick={() => {
-            handleClose();
-            closeModal();
-          }} // "close" 버튼 클릭 시에만 모달 닫히도록
-          className="absolute p-2 text-black top-1 right-2"
-        >
-          <FontAwesomeIcon icon={faXmark} className="text-[25px]" />
-        </button>
+    <div className="modal-overlay">
+      <div className="modal-container">
+        {/* 모달 헤더 */}
+        <div className="modal-header">
+          <button
+            onClick={() => {
+              handleClose();
+              closeModal();
+            }}
+            className="close-button"
+          >
+            <FontAwesomeIcon icon={faXmark} className="close-icon" />
+          </button>
+        </div>
+
+        {/* 모달 본문 */}
+        <div className="modal-body">
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>{error}</p>
+          ) : (
+            <div className="keyword-buttons">
+              {keywords.length > 0 ? (
+                keywords.map((keyword) => (
+                  <button
+                    key={keyword}
+                    className={`keyword-button ${
+                      localKeywords.includes(keyword) ? "selected" : ""
+                    }`}
+                    onClick={() => handleKeywordSelect(keyword)} // 키워드 선택/해제
+                  >
+                    {keyword}
+                  </button>
+                ))
+              ) : (
+                <p>No keywords available</p> // 키워드가 없을 경우 메시지 표시
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

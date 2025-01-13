@@ -7,6 +7,7 @@ import { usePostFetcher } from "../hooks/usePostFetcher"; // 커스텀 훅 임�
 import { useKeywordsFetcher } from "../hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
 import PostCard from "./PostCard"; // 포스트 카드 컴포넌트
 import "../styles/postcard.css";
+import Skeleton from "./Skeleton";
 
 interface PostListProps {
   size: "xs" | "s" | "m" | "l" | "xl"; // PostList 크기
@@ -35,7 +36,12 @@ const PostList: React.FC<PostListProps> = ({ size }) => {
   return (
     <div className={`post-list ${size}`}>
       <div className="post-list-row">
-        {posts.length > 0 ? (
+        {loading ? (
+          // 로딩 중이면 스켈레톤 UI를 표시
+          Array(5)
+            .fill(0)
+            .map((_, index) => <Skeleton key={index} />) // 5개의 스켈레톤 UI 표시
+        ) : posts.length > 0 ? (
           posts.map((post) => (
             <PostCard key={post._id} content={post} size={size} />
           ))

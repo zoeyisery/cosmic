@@ -17,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </head>
         <Provider store={store}>
           <body>
-            <div className="w-full p-6 mx-auto bg-white rounded-lg shadow-xl sm:w-full md:w-5/12 lg:w-3/12 xl:w-3/12">
+            <div className="w-full p-3 mx-auto bg-white rounded-lg shadow-xl sm:w-full md:w-5/12 lg:w-3/12 xl:w-3/12">
               <Header />
               <main> {children}</main>
               <Footer />

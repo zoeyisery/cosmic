@@ -43,7 +43,6 @@ const ContentGrid = () => {
       <PostList size="xl" />
       <PostList size="m" />
       <PostList size="s" />
-      <PostList size="l" />
     </div>
   );
 };

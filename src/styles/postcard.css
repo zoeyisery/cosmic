@@ -39,7 +39,10 @@
 /* M 사이즈: 직사각형 1개가 한 줄 */
 .post-card.m {
   width: 100%; /* 한 카드가 전체 너비 차지 */
-  aspect-ratio: 3 / 2; /* 직사각형 모양 */
+  aspect-ratio: 2/ 1; /* 직사각형 모양 */
+  display: flex;
+  flex-direction: row;
+  //justify-content: space-between;
 }
 
 /* L 사이즈: 세로가 조금 더 짧은 직사각형 */
@@ -68,8 +71,11 @@
 
 .post-card-image {
   width: 100%;
-  height: auto;
-  object-fit: cover; /* 이미지를 카드 크기에 맞게 자동으로 자르기 */
+  height: 100%;
+  object-fit: contain; /* 이미지를 카드 크기에 맞게 자동으로 자르기 */
   border-radius: 8px;
   margin-top: 10px;
+  //margin-bottom: 10px;
+  //max-height: 200px;
+  max-width: 100%;
 }
