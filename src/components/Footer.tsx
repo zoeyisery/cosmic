@@ -1,39 +1,18 @@
-/*const Footer = () => {
-  return (
-    <footer className="p-4 text-black bg-white">
-      <div className="flex items-center justify-between mx-auto ">
-        <div className="text-sm">© 2025 Cosmic</div>
-        <div className="space-x-4">
-          <a href="#" className="hover:text-yellow-400">
-            Home
-          </a>
-          <a href="#" className="hover:text-yellow-400">
-            About
-          </a>
-          <a href="#" className="hover:text-yellow-400">
-            Contact
-          </a>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;*/
+import "../styles/footer.css";
 
 const Footer = () => {
   return (
     <footer className="bottom-0 w-full p-4 pb-16 text-black bg-white ">
-      <div className="flex items-center justify-between mx-auto">
-        <div className="text-xs text-gray-400">© 2025 Cosmic</div>
-        <div className="flex space-x-4 text-xs">
-          <a href="#" className="text-gray-400 hover:text-yellow-400">
+      <div className="footer-container">
+        <div className="footer-text">© 2025 Cosmic</div>
+        <div className="footer-links">
+          <a href="#" className="footer-link">
             Home
           </a>
-          <a href="#" className="text-gray-400 hover:text-yellow-400">
+          <a href="#" className="footer-link">
             About
           </a>
-          <a href="#" className="text-gray-400 hover:text-yellow-400">
+          <a href="#" className="footer-link">
             Contact
           </a>
         </div>

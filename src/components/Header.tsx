@@ -6,6 +6,7 @@ import { faList, faBell } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
 import { setKeyword } from "../store/slices/keywordSlice"; // Redux 액션 임포트
+import "../styles/header.css";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,11 +30,11 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-10 bg-white">
-      <div className="flex items-center justify-between max-w-screen-xl pt-0 mx-auto">
-        <h1 className="font-bold text-yellow-400 text-md">COSMIC</h1>
-        <div className="flex space-x-4">
+      <div className="header-container">
+        <h1 className="logo">COSMIC</h1>
+        <div className="button-container">
           <button onClick={openModal}>
-            <FontAwesomeIcon icon={faList} className="text-[16px]" />
+            <FontAwesomeIcon icon={faList} className="icon" />
           </button>
         </div>
       </div>

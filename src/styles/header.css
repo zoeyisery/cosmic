@@ -1,0 +1,35 @@
+.header {
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* 헤더 내부의 컨테이너 스타일 */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 중앙 정렬 */
+  padding-top: 0; /* 위쪽 패딩 제거 */
+}
+
+/* 로고 스타일 */
+.logo {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #f4c542; /* Yellow color */
+}
+
+/* 버튼 컨테이너 */
+.button-container {
+  display: flex;
+  gap: 1rem; /* 버튼 간의 간격 */
+}
+
+/* 버튼 아이콘 스타일 */
+.icon {
+  font-size: 16px;
+  color: #333; /* 아이콘 색상 */
+}
