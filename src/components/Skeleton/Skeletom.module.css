@@ -1,4 +1,4 @@
-.skeleton-card {
+.skeletonItem {
   display: flex;
   margin: 10px;
   width: 100%;
@@ -11,20 +11,20 @@
   border-radius: 10px;
 }
 
-.skeleton-thumbnail {
+.skeletonThumbnail {
   width: 100%;
   height: 200px;
   background-color: #e0e0e0;
   margin-bottom: 10px;
 }
 
-.skeleton-content {
+.skeletonContent {
   display: flex;
   flex-direction: column;
 }
 
-.skeleton-title,
-.skeleton-description {
+.skeletonTitle,
+.skeletonDescription {
   width: 100%;
   height: 20px;
   //background-color: #e0e0e0;

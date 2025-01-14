@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../store/store"; // Redux 상태 타입 임포트
-import { setKeyword } from "../store/slices/keywordSlice"; // Redux 액션 임포트
-import { usePostFetcher } from "../hooks/usePostFetcher"; // 커스텀 훅 임포트
-import { useKeywordsFetcher } from "../hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
-import PostCard from "./PostCard"; // 포스트 카드 컴포넌트
-import "../styles/postcard.css";
-import Skeleton from "./Skeleton";
+import { RootState } from "@/store/store"; // Redux 상태 타입 임포트
+import { setKeyword } from "@/store/slices/keywordSlice"; // Redux 액션 임포트
+import { usePostFetcher } from "@/hooks/usePostFetcher"; // 커스텀 훅 임포트
+import { useKeywordsFetcher } from "@/hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
+import PostItem from "../PostItem/PostItem"; // 포스트 카드 컴포넌트
+import styles from "./PostGrid.module.css";
+import Skeleton from "@/components/Skeleton/Skeleton";
 
-interface PostListProps {
+interface PostGridProps {
   size: "xs" | "s" | "m" | "l" | "xl"; // PostList 크기
 }
 
-const PostList: React.FC<PostListProps> = ({ size }) => {
+const PostGrid: React.FC<PostGridProps> = ({ size }) => {
   const selectedKeywords = useSelector(
     (state: RootState) => state.keyword.selectedKeywords
   ); // 선택된 키워드 가져오기
@@ -34,8 +34,8 @@ const PostList: React.FC<PostListProps> = ({ size }) => {
   const posts = usePostFetcher(selectedKeywords, size);
 
   return (
-    <div className={`post-list ${size}`}>
-      <div className="post-list-row">
+    <div className={`${styles.postGrid} ${styles[size]}`}>
+      <div className={styles.postGridRow}>
         {loading ? (
           // 로딩 중이면 스켈레톤 UI를 표시
           Array(5)
@@ -43,10 +43,10 @@ const PostList: React.FC<PostListProps> = ({ size }) => {
             .map((_, index) => <Skeleton key={index} />) // 5개의 스켈레톤 UI 표시
         ) : posts.length > 0 ? (
           posts.map((post) => (
-            <PostCard key={post._id} content={post} size={size} />
+            <PostItem key={post._id} content={post} size={size} />
           ))
         ) : (
-          <div className="no-posts-message">
+          <div className={styles.noPostsMessage}>
             <p>No posts found</p>
           </div>
         )}
@@ -55,7 +55,7 @@ const PostList: React.FC<PostListProps> = ({ size }) => {
   );
 };
 
-export default PostList;
+export default PostGrid;
 /*"use client";
 
 import React, { useState, useEffect } from "react";
