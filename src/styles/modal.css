@@ -56,7 +56,7 @@
 
 /* 선택된 키워드 스타일 */
 .keyword-button.selected {
-  background-color: #3498db;
+  background-color: #f4c542;
   color: white;
 }
 

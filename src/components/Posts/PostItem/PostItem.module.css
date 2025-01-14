@@ -1,11 +1,14 @@
 .postItem {
   background-color: #f5f5f5;
   border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 12px;
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* 부드럽고 입체적인 그림자 */
+  transition: all 0.3s ease; /* 마우스 오버 시 부드러운 효과 */
 }
 
 .postItem.xl {
@@ -14,25 +17,87 @@
   margin: 0 auto; /* 중앙 정렬 */
   max-height: 280px;
 }
-
-/* M 사이즈: 직사각형 1개가 한 줄 */
-.postItem.m {
-  width: 100%; /* 한 카드가 전체 너비 차지 */
-  aspect-ratio: 3/ 1; /* 직사각형 모양 */
-  display: flex;
-  flex-direction: row;
-  //justify-content: space-between;
-}
-
 /* L 사이즈: 세로가 조금 더 짧은 직사각형 */
 .postItem.l {
   width: 100%; /* 한 카드가 전체 너비 차지 */
   aspect-ratio: 2 / 3; /* 세로 직사각형 모양 */
   max-height: 200px;
+  display: flex;
+  color: black; /* 배경 이미지 위에 텍스트가 보이도록 텍스트 색상 설정 */
+  padding-top: 20px; /* 텍스트가 배경 이미지 위에 잘 보이도록 적절한 padding 설정 */
+  background-color: #b2ebf4;
+  flex-direction: row; /* 이미지와 텍스트를 가로로 배치 */
+  justify-content: space-between; /* 텍스트는 왼쪽, 이미지는 오른쪽에 배치 */
+  align-items: end; /* 세로 정렬 */
+  padding-bottom: 20px;
+  text-align: left; /* 텍스트 왼쪽 정렬 */
 }
+
+.postItem.l .image {
+  padding-right: 30px;
+  max-height: 300px; /* 최대 높이 설정 */
+  height: 160px;
+  object-fit: cover; /* 카드 크기에 맞게 자르기 */
+  max-width: 150px;
+  align-self: center;
+}
+
+.postItem.l .title {
+  padding-left: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #5d5d5d;
+  max-width: 170px; /* 텍스트의 최대 너비 설정 */
+  word-wrap: break-word; /* 텍스트가 영역을 넘으면 자동으로 줄 바꿈 */
+  position: relative;
+}
+
+.postItem.l .description {
+  padding-left: 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  max-width: 170px; /* 텍스트의 최대 너비 설정 */
+  word-wrap: break-word; /* 텍스트가 영역을 넘으면 자동으로 줄 바꿈 */
+  position: relative;
+}
+
 .postItem.m {
   width: 100%;
+  aspect-ratio: 3/ 1; /* 직사각형 모양 */
   max-height: 80px;
+  display: flex;
+  background-color: #faed7d;
+  flex-direction: row; /* 이미지와 텍스트를 가로로 배치 */
+  justify-content: space-between; /* 텍스트는 왼쪽, 이미지는 오른쪽에 배치 */
+  align-items: center; /* 세로 정렬 */
+  text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.postItem.m .image {
+  max-height: 80px; /* 최대 높이 설정 */
+  height: 60px;
+  object-fit: cover; /* 카드 크기에 맞게 자르기 */
+  max-width: 70px;
+  align-self: center;
+}
+
+.postItem.m .title {
+  padding-left: 5px;
+  font-size: 0.4rem;
+  font-weight: bold;
+  color: #5d5d5d;
+  max-width: 170px; /* 텍스트의 최대 너비 설정 */
+  word-wrap: break-word; /* 텍스트가 영역을 넘으면 자동으로 줄 바꿈 */
+  position: relative;
+}
+
+.postItem.m .description {
+  padding-left: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  max-width: 170px; /* 텍스트의 최대 너비 설정 */
+  word-wrap: break-word; /* 텍스트가 영역을 넘으면 자동으로 줄 바꿈 */
+  position: relative;
 }
 
 .postItem.s {
@@ -53,6 +118,24 @@
 .postItem.xs {
   width: 100%;
   max-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* 이미지가 상단에 배치되도록 */
+  align-items: center; /* 중앙 정렬 */
+  text-align: center; /* 타이틀 중앙 정렬 */
+  padding: 0; /* 기본 padding 제거 */
+}
+
+.postItem.xs .image {
+  max-height: 45px;
+  margin-bottom: 10px;
+}
+
+.postItem.xs .title {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: 10px; /* 이미지와 타이틀 사이 간격 설정 */
+  //position: absolute; /* 타이틀을 카드 하단에 고정 */
 }
 
 .image {
@@ -60,7 +143,6 @@
   height: auto;
   object-fit: contain; /* 이미지를 카드 크기에 맞게 자르기 */
   border-radius: 8px;
-  margin-top: 10px;
   max-width: 100%;
 }
 
@@ -68,18 +150,6 @@
 .postItem.xl .image {
   max-height: 300px; /* 최대 높이를 설정 */
   object-fit: cover; /* 이미지를 카드 크기에 맞게 잘라서 채움 */
-}
-
-/* 'l' 사이즈 포스트 카드 이미지 */
-.postItem.l .image {
-  max-height: 250px; /* 최대 높이 설정 */
-  object-fit: contain; /* 비율을 유지하며 이미지를 자르지 않음 */
-}
-
-/* 'm' 사이즈 포스트 카드 이미지 */
-.postItem.m .image {
-  max-height: 200px; /* 최대 높이 설정 */
-  object-fit: cover; /* 카드 크기에 맞게 자르기 */
 }
 
 /* 's' 사이즈 포스트 카드 이미지 */

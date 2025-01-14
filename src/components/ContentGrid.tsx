@@ -42,8 +42,7 @@ const ContentGrid = () => {
       <PostGrid size="l" />
       <PostGrid size="xs" />
       <PostGrid size="m" />
-      <PostGrid size="m" />
-      <PostGrid size="xl" />
+
       <PostGrid size="s" />
     </div>
   );

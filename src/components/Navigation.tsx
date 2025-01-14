@@ -6,7 +6,7 @@ import {
   faMagnifyingGlass,
   faHouse,
   faPenToSquare,
-  faRightToBracket,
+  faUser,
   faBell,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -27,7 +27,7 @@ const Navigation = () => {
           <FontAwesomeIcon icon={faBell} className="text-[16px]" />
         </Link>
         <Link href="/auth">
-          <FontAwesomeIcon icon={faRightToBracket} />
+          <FontAwesomeIcon icon={faUser} />
         </Link>
       </ul>
     </nav>

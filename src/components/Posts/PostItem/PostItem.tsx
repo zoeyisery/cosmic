@@ -28,9 +28,11 @@ const PostItem: React.FC<PostItemProps> = ({ size, content }) => {
         } as React.CSSProperties
       }
     >
-      <div className={styles.content}>
+      <div>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
+      </div>
+      <div>
         {imageUrl && (
           <img src={imageUrl} alt={title} className={styles.image} />
         )}
