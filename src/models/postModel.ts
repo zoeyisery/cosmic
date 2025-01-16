@@ -1,25 +1,25 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface Product extends Document {
-  name: string;
-  brand: string;
-  category: string;
-  price: number;
+interface IPost extends Document {
+  title: string;
   description: string;
-  imageUrl: string;
-  rating: number;
+  content?: string;
+  product?: Schema.Types.ObjectId;
+  keywords: string[];
+  author?: string;
+  createdAt?: Date;
 }
 
-const productSchema = new Schema<Product>({
-  name: { type: String, required: true },
-  brand: { type: String, required: true },
-  category: { type: String, required: true },
-  price: { type: Number, required: true },
+const postSchema: Schema<IPost> = new Schema({
+  title: { type: String, required: true },
   description: { type: String },
-  imageUrl: { type: String, required: true },
-  rating: { type: Number, min: 0, max: 5, default: 0 },
+  content: { type: String },
+  product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+  keywords: [{ type: String, index: true }],
+  author: { type: String },
+  createdAt: { type: Date, default: Date.now },
 });
 
-const Product = mongoose.model<Product>("Product", productSchema);
+const Post = mongoose.models.Post || mongoose.model<IPost>("Post", postSchema);
 
-export default Product;
+export default Post;
