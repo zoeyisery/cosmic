@@ -3,10 +3,11 @@
   position: sticky;
   top: 0;
   z-index: 10;
+  //padding: 10px 20px;
 }
 
 /* 헤더 내부의 컨테이너 스타일 */
-.header-container {
+.headerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,7 +24,7 @@
 }
 
 /* 버튼 컨테이너 */
-.button-container {
+.buttonContainer {
   display: flex;
   gap: 1rem; /* 버튼 간의 간격 */
 }

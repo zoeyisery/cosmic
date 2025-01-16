@@ -1,19 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import Modal from "./Modal";
+import Modal from "@/components/Modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faBell } from "@fortawesome/free-solid-svg-icons";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../store/store";
-import { setKeyword } from "../store/slices/keywordSlice"; // Redux 액션 임포트
-import "../styles/header.css";
+import { faList } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Header.module.css";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
+  /*const dispatch = useDispatch();
   const selectedKeyword = useSelector(
     (state: RootState) => state.keyword.selectedKeywords
-  ); // Redux에서 키워드 상태 가져오기
+  ); // Redux에서 키워드 상태 가져오기*/
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -29,10 +26,10 @@ const Header = () => {
   };*/
 
   return (
-    <header className="sticky top-0 z-10 bg-white">
-      <div className="header-container">
-        <h1 className="logo">COSMIC</h1>
-        <div className="button-container">
+    <header className={styles.header}>
+      <div className={styles.headerContainer}>
+        <h1 className={styles.logo}>COSMIC</h1>
+        <div className={styles.buttonContainer}>
           <button onClick={openModal}>
             <FontAwesomeIcon icon={faList} className="icon" />
           </button>

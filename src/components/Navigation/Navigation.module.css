@@ -1,0 +1,55 @@
+.navigation {
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  width: 90%; /* 모바일에서 너비를 90%로 설정 */
+  margin: 0 auto;
+  text-align: center;
+  background-color: #2d3748; /* 배경색 설정 */
+  border-radius: 9999px; /* 둥근 모서리 */
+  padding: 10px;
+}
+
+.navLinks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* 항목 사이의 간격 */
+}
+
+.navLinks li {
+  list-style-type: none;
+}
+
+.icon {
+  font-size: 20px;
+  color: white;
+}
+
+.icon:hover {
+  color: #f4c542; /* 아이콘에 마우스를 올렸을 때 색상 변경 */
+}
+
+@media (min-width: 640px) {
+  .navigation {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .navigation {
+    width: 40%; /* 태블릿에서 너비를 40%로 설정 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .navigation {
+    width: 60%; /* 데스크탑에서 너비를 60%로 설정 */
+  }
+}
+
+@media (min-width: 1280px) {
+  .navigation {
+    width: 60%; /* 큰 화면에서 너비를 60%로 설정 */
+  }
+}

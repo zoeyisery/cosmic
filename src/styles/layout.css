@@ -1,33 +1,40 @@
-html,
+.layout-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: white;
+  //border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 body {
+  font-family: "Arial", sans-serif;
+  background-color: #f7f7f7; /* 배경 색상 */
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
 }
 
-/* 화면 가운데 콘텐츠를 배치 */
-.main-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  padding: 10px;
+html {
+  font-size: 16px; /* 기본 폰트 크기 설정 */
 }
 
-/* 콘텐츠의 최대 너비와 높이를 제한 */ /* 원하는 너비 (예: 1200px) */
-
-/* 모바일 기기에서 너비를 100%로 조정 */
-
-/* 전체 화면을 flex로 설정하여 가운데 정렬 */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* 콘텐츠를 세로로 상단에 정렬 */
-  height: 100vh; /* 화면 전체 높이 사용 */
-  background-color: black; /* 배경 색 */
-  padding: 0 10%; /* 여백 추가 */
+/* 반응형 디자인: 화면 크기에 따라 레이아웃 너비 조정 */
+@media (max-width: 640px) {
+  .layout-container {
+    width: 100%;
+    padding: 8px;
+  }
 }
 
-/* 콘텐츠의 너비 고정 */
+@media (min-width: 768px) {
+  .layout-container {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-container {
+    width: 60%;
+  }
+}

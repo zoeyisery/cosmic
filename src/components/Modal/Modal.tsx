@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useKeywordManager } from "../hooks/useKeywordManager"; // 커스텀 훅 임포트
-import { useKeywordsFetcher } from "../hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
-import "../styles/modal.css";
+import { useKeywordManager } from "@/hooks/useKeywordManager"; // 커스텀 훅 임포트
+import { useKeywordsFetcher } from "@/hooks/useKeywordFetcher"; // 키워드 데이터 가져오는 커스텀 훅
+import styles from "./Modal.module.css";
 
 interface ModalProps {
   closeModal: () => void;
@@ -19,35 +19,34 @@ const Modal: React.FC<ModalProps> = ({ closeModal }) => {
   //const filteredKeywords = keywords.filter(keyword => !selectedKeywords.includes(keyword));
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
-        {/* 모달 헤더 */}
-        <div className="modal-header">
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContainer}>
+        <div className={styles.modalHeader}>
           <button
             onClick={() => {
               handleClose();
               closeModal();
             }}
-            className="close-button"
+            className={styles.closeButton}
           >
-            <FontAwesomeIcon icon={faXmark} className="close-icon" />
+            <FontAwesomeIcon icon={faXmark} className={styles.closeIcon} />
           </button>
         </div>
 
         {/* 모달 본문 */}
-        <div className="modal-body">
+        <div className={styles.modalBody}>
           {loading ? (
             <p>Loading...</p>
           ) : error ? (
             <p>{error}</p>
           ) : (
-            <div className="keyword-buttons">
+            <div className={styles.keywordButtons}>
               {keywords.length > 0 ? (
                 keywords.map((keyword) => (
                   <button
                     key={keyword}
-                    className={`keyword-button ${
-                      localKeywords.includes(keyword) ? "selected" : ""
+                    className={`${styles.keywordButton} ${
+                      localKeywords.includes(keyword) ? styles.selected : ""
                     }`}
                     onClick={() => handleKeywordSelect(keyword)} // 키워드 선택/해제
                   >

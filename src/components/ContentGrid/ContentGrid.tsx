@@ -34,15 +34,15 @@ const ContentGrid = () => {
 export default ContentGrid;*/
 
 import React from "react";
-import PostGrid from "../components/Posts/PostGrid/PostGrid";
+import PostGrid from "@/components/Posts/PostGrid/PostGrid";
+import styles from "./ContentGrid.module.css";
 
 const ContentGrid = () => {
   return (
-    <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 xl:grid-cols-5">
+    <div className={styles.contentGrid}>
       <PostGrid size="l" />
       <PostGrid size="xs" />
       <PostGrid size="m" />
-
       <PostGrid size="s" />
     </div>
   );

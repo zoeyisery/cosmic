@@ -1,5 +1,5 @@
 /* 모달 오버레이 - 전체 화면을 덮는 배경 */
-.modal-overlay {
+.modalOverlay {
   position: fixed;
   inset: 0;
   display: flex;
@@ -9,7 +9,7 @@
 }
 
 /* 모달 컨테이너 */
-.modal-container {
+.modalContainer {
   position: relative;
   padding: 16px;
   background-color: white;
@@ -22,14 +22,14 @@
 }
 
 /* 모달 헤더: 닫기 버튼 */
-.modal-header {
+.modalHeader {
   display: flex;
   justify-content: flex-end; /* 닫기 버튼을 오른쪽 끝에 배치 */
   padding-bottom: 30px;
 }
 
 /* 모달 본문: 키워드 버튼 영역 */
-.modal-body {
+.modalBody {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -37,14 +37,14 @@
   padding-bottom: 10px;
 }
 /* 키워드 버튼 영역 */
-.keyword-buttons {
+.keywordButtons {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
 /* 개별 키워드 버튼 스타일 */
-.keyword-button {
+.keywordButton {
   padding: 8px;
   text-align: center;
   font-size: 12px;
@@ -55,18 +55,18 @@
 }
 
 /* 선택된 키워드 스타일 */
-.keyword-button.selected {
+.keywordButton.selected {
   background-color: #f4c542;
   color: white;
 }
 
 /* 키워드 버튼 호버 효과 */
-.keyword-button:hover {
+.keywordButton:hover {
   background-color: #e0e0e0;
 }
 
 /* 모달 닫기 버튼 */
-.close-button {
+.closeButton {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -78,7 +78,7 @@
 }
 
 /* 모달 닫기 아이콘 */
-.close-icon {
+.closeIcon {
   font-size: 25px;
   color: #333;
 }

@@ -1,13 +1,13 @@
 .footer {
   background-color: white;
-  color: black;
-  padding: 16px 0 32px; /* 위쪽 패딩과 아래쪽 패딩 설정 */
+  bottom: 0;
+  padding: 10px 0 64px; /* 위쪽 패딩과 아래쪽 패딩 설정 */
   width: 100%;
   position: relative; /* 고정되지 않은 푸터 */
 }
 
 /* 푸터 내부 컨테이너 */
-.footer-container {
+.footerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,25 +16,25 @@
 }
 
 /* 푸터 텍스트 */
-.footer-text {
+.footerText {
   font-size: 10px;
   color: #9e9e9e; /* 회색 텍스트 */
 }
 
 /* 푸터 링크 그룹 */
-.footer-links {
+.footerLinks {
   display: flex;
   gap: 16px; /* 링크 간의 간격 */
 }
 
 /* 각 푸터 링크 스타일 */
-.footer-link {
+.footerLink {
   font-size: 10px;
   color: #9e9e9e; /* 기본 회색 */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.footer-link:hover {
+.footerLink:hover {
   color: #f4c542; /* 호버 시 노란색 */
 }

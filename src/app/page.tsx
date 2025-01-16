@@ -154,17 +154,15 @@ const HomePage = () => {
 
 export default HomePage;*/
 import React from "react";
-import ContentGrid from "../components/ContentGrid";
+import ContentGrid from "@/components/ContentGrid/ContentGrid";
 import "../styles/layout.css";
 
 const Page = () => {
   return (
-    <div>
-      <div className="w-full mt-4">
-        <main>
-          <ContentGrid />
-        </main>
-      </div>
+    <div className="w-full mt-2">
+      <main>
+        <ContentGrid />
+      </main>
     </div>
   );
 };

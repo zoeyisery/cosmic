@@ -1,0 +1,46 @@
+.contentGrid {
+  display: grid;
+  width: 100%;
+  gap: 10px; /* 카드 사이의 간격 */
+}
+
+.contentGrid .sm\:grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.contentGrid .md\:grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.contentGrid .lg\:grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.contentGrid .xl\:grid-cols-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/*  여기서 각 해상도에 맞는 그리드 스타일을 적용 */
+@media (max-width: 640px) {
+  .contentGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .contentGrid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .contentGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
